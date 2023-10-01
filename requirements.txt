@@ -1,4 +1,8 @@
 openai
-streamlit
+fastapi
+uvicorn
 python-dotenv
 langchain
+faiss-cpu
+youtube-transcript-api
+tiktoken

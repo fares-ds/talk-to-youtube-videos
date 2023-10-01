@@ -1,13 +1,10 @@
-from langchain.llms import OpenAI
-from dotenv import load_dotenv
+from fastapi import FastAPI
+from langchain_helper import create_vdb_from_youtube_url, get_response_from_query
 
-load_dotenv()
+app = FastAPI()
 
-def generate_pet_name():
-    llm = OpenAI(temperature=0.7)
-    prompt = "I have a dog pet and I want a cool name for it. suggest five cool names for my pet."
-    names = llm(prompt=prompt)
-    return names
-
-if __name__ == "__main__":
-    print(generate_pet_name())
+@app.post("/ask")
+def ask_video(video_url: str, question: str):
+    db = create_vdb_from_youtube_url(vidoe_url=video_url)
+    output = get_response_from_query(db=db, query=question, k=4)
+    return output
